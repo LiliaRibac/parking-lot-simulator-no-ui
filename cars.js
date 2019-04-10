@@ -9,7 +9,7 @@ var qWait = [];
 var parkingSpaces = [];
 // const freeToGo = [];
 
-var spaceOpen = NUMBER_OF_SPACES - parkingSpaces.length; 
+var spaceOpen = NUMBER_OF_SPACES - parkingSpaces.length;
 
 // var license = lisenceFactory()
 
@@ -45,19 +45,19 @@ function randomColor() {
 }
 
 function Car(model, color, lisencePlate, year, time) {
-    this.model = randomModel(); 
+    this.model = randomModel();
     this.color = randomColor();
     this.lisencePlate = lisenceFactory();
     this.year = yearRandom();
     this.time = timeRandom()
 
-    this.park = function (car, space){
+    this.park = function (car, space) {
         console.log("park");
         // console.log(this.time)
         setTimeout(this.leave(car, space), this.timer);
     }
 
-    this.leave = function (car, space){
+    this.leave = function (car, space) {
         console.log("Leave!")
         // space.pop() car out of space array
     }
@@ -72,29 +72,23 @@ function allCarsRandom() {
 }
 
 
-
 // Parking lot functions
 
-function ParkingLot(spaces){
-   this.spaces = spacesFactory();
-
-}
-
- function Attendant(){
-    for(let i = 0; i < NUMBER_OF_SPACES; i++){
-        if ( spaceOpen !== 0 ){
+function Attendant() {
+    for (let i = 0; i < NUMBER_OF_SPACES; i++) {
+        if (spaceOpen !== 0) {
             var car = qWait.shift()
-          
+
             parkingSpaces.push(car)
             car.park(car)
-            
+
         } else {
             alert('No more spaces available!')
         }
     }
- }
+}
 
- 
+
 allCarsRandom();
 Attendant()
 console.log(parkingSpaces)

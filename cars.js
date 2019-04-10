@@ -1,3 +1,4 @@
+"use stric"
 var parkLot = [];
 var qWait = [];
 // const freeToGo = [];
@@ -18,6 +19,7 @@ function timeRandom(t) {
     var t = Math.floor(Math.random() * 4000) + 1000;
     return t;
 }
+
 function lisenceFactory(lengthde) {
     var l = ""
     var alfabet = 'ABCDEFGHLJKQWERLTYUIOPMNVCZ0123456789';
@@ -28,7 +30,6 @@ function lisenceFactory(lengthde) {
     return l;
 
 }
-
 
 // var color = arrColor[Math.floor(Math.random() * arrColor.length)];
 function randomModel(arrModels) {
@@ -59,9 +60,26 @@ function allCarsRandom() {
     }
     return qWait;
 }
+
+
+
+var NUMBER_OF_SPACES = 20;
+// var parkLot = [];
+// var qWait = [];
+var spaceOpen = NUMBER_OF_SPACES - parkLot.length; 
+
+ function parkingLot(){
+     for(let i = 0; i < NUMBER_OF_SPACES; i++){
+         if ( spaceOpen !== 0 ){
+            parkLot.push(qWait.pop())
+         } else {
+             alert('No more spaces available!')
+         }
+     }
+ }
+
+
 allCarsRandom();
 console.log(qWait);
-
-var
-
-function carParked()
+parkingLot()
+console.log(parkLot)

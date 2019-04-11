@@ -1,7 +1,7 @@
 "use stric"
 
-const NUMBER_OF_CARS = 100;
-const NUMBER_OF_SPACES = 10;
+const NUMBER_OF_CARS = 5;
+const NUMBER_OF_SPACES = 1;
 
 
 var qWait = [];
@@ -19,7 +19,7 @@ function yearRandom(e) {
 }
 
 function timeRandom(t) {
-    var t = Math.floor(Math.random() * 4000) + 1000;
+    var t = Math.floor(Math.random() * ( 4000 - 1000) + 1000);
     return t;
 }
 
@@ -35,7 +35,7 @@ function lisenceFactory(lengthde) {
 }
 
 function randomModel() {
-    let arrModels = ['Ford', 'toyota', 'tacoma', 'jeep', 'ferrari', 'camry'];
+    let arrModels = ['Ford', 'Toyota', 'Tacoma', 'Jeep', 'Ferrari', 'Camry'];
     return arrModels[Math.floor(Math.random() * arrModels.length)];
 }
 
@@ -51,15 +51,19 @@ function Car(model, color, lisencePlate, year, time) {
     this.year = yearRandom();
     this.time = timeRandom()
 
-    this.park = function (car, space) {
-        console.log("park");
-        // console.log(this.time)
-        setTimeout(this.leave(car, space), this.timer);
+    this.park = function (car) {
+        console.log("park", car);
+        parkingSpaces.push(car)
+
+
+        setTimeout(function(){car.leave(car)}, this.time);
     }
 
-    this.leave = function (car, space) {
-        console.log("Leave!")
-        // space.pop() car out of space array
+    this.leave = function (car) {
+        console.log("Leave!", car)
+        parkingSpaces.pop(car);
+
+        Attendant()
     }
 }
 
@@ -68,6 +72,7 @@ function allCarsRandom() {
         let car = new Car();
         qWait.push(car)
     }
+    console.log(qWait)
     return qWait;
 }
 
@@ -76,22 +81,39 @@ function allCarsRandom() {
 
 function Attendant() {
     for (let i = 0; i < NUMBER_OF_SPACES; i++) {
-        if (spaceOpen !== 0) {
-            var car = qWait.shift()
+        if (spaceOpen !== 0 && qWait.length !== 0) {
+            var car = qWait.pop()
 
-            parkingSpaces.push(car)
             car.park(car)
-
+            
         } else {
-            alert('No more spaces available!')
+            console.log('No more spaces available!')
         }
     }
+
 }
+
+// var timeoutId = setTimeout(Car, 1000);
+// clearTimeout(timeoutId);
+
+// var intervalId = setInterval(allCarsRandom, 1000)
+// clearInterval(intervalId);
+
+// let timer = setTimeout(function myTimer() {
+//     increment();
+   
+
+//     timer = setTimeout(myTimer, 1000);
+// }, 1000);
+
+
+// let's cancel after 7 seconds
+// setTimeout(() => {
+//     console.log('Cancelling');
+//     clearTimeout(timer);
+// }, 10000);
 
 
 allCarsRandom();
 Attendant()
-console.log(parkingSpaces)
-// console.log(qWait);
-// console.log(new ParkingLot());
-// console.log(parkLot)
+console.log(qWait);
